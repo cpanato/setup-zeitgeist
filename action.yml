@@ -1,7 +1,7 @@
 # action.yml
-name: cosign-installer
-author: sigstore
-description: 'Installs cosign and includes it in your path'
+name: setup-zeitgeist
+author: cpanato
+description: 'Installs zeitgeist and includes it in your path'
 branding:
   icon: 'package'
   color: 'blue'
@@ -23,6 +23,9 @@ runs:
   using: "composite"
   steps:
     - uses: sigstore/cosign-installer@9becc617647dfa20ae7b1151972e9b3a2c338a2b # v2.8.1
+      with:
+        install-dir: ${{ input.install-dir }}
+        use-sudo: ${{ input.use-sudo }}
     - shell: bash
       run: |
         #!/bin/bash
@@ -129,7 +132,7 @@ runs:
         ZEITGEIST_SIG=https://github.com/kubernetes-sigs/zeitgeist/releases/download/v${{ inputs.zeitgeist-release }}/${desired_zeitgeist_filename}.sig
 
         log_info "Using cosign to verify signature of desired zeitgeist version"
-        COSIGN_EXPERIMENTAL=true cosign verify-blob --cert $ZEITGEIST_CERT --signature $ZEITGEIST_SIG ${zeitgeist_executable_name}
+        COSIGN_EXPERIMENTAL=true $SUDO cosign verify-blob --cert $ZEITGEIST_CERT --signature $ZEITGEIST_SIG ${zeitgeist_executable_name}
         ret=$?
         if [[ $retVal -eq 0 ]]; then
           $SUDO chmod +x ${zeitgeist_executable_name}
