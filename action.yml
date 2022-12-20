@@ -129,7 +129,7 @@ runs:
         ZEITGEIST_SIG=https://github.com/kubernetes-sigs/zeitgeist/releases/download/v${{ inputs.zeitgeist-release }}/${desired_zeitgeist_filename}.sig
 
         log_info "Using cosign to verify signature of desired zeitgeist version"
-        cosign verify-blob --key $ZEITGEIST_KEY --signature $ZEITGEIST_SIG ${zeitgeist_executable_name}
+        cosign verify-blob --cert $ZEITGEIST_KEY --signature $ZEITGEIST_SIG ${zeitgeist_executable_name}
         ret=$?
         if [[ $retVal -eq 0 ]]; then
           $SUDO chmod +x ${zeitgeist_executable_name}
