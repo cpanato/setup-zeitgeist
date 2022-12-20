@@ -125,11 +125,11 @@ runs:
         log_info "Downloading platform-specific version '${{ inputs.zeitgeist-release }}' of zeitgeist...\n      https://github.com/kubernetes-sigs/zeitgeist/releases/download/v${{ inputs.zeitgeist-release }}/${desired_zeitgeist_filename}"
         $SUDO curl -sL https://github.com/kubernetes-sigs/zeitgeist/releases/download/v${{ inputs.zeitgeist-release }}/${desired_zeitgeist_filename} -o ${zeitgeist_executable_name}
 
-        ZEITGEIST_KEY=https://github.com/kubernetes-sigs/zeitgeist/releases/download/v${{ inputs.zeitgeist-release }}/${desired_zeitgeist_filename}.pem
+        ZEITGEIST_CERT=https://github.com/kubernetes-sigs/zeitgeist/releases/download/v${{ inputs.zeitgeist-release }}/${desired_zeitgeist_filename}.pem
         ZEITGEIST_SIG=https://github.com/kubernetes-sigs/zeitgeist/releases/download/v${{ inputs.zeitgeist-release }}/${desired_zeitgeist_filename}.sig
 
         log_info "Using cosign to verify signature of desired zeitgeist version"
-        cosign verify-blob --cert $ZEITGEIST_KEY --signature $ZEITGEIST_SIG ${zeitgeist_executable_name}
+        COSIGN_EXPERIMENTAL=true cosign verify-blob --cert $ZEITGEIST_CERT --signature $ZEITGEIST_SIG ${zeitgeist_executable_name}
         ret=$?
         if [[ $retVal -eq 0 ]]; then
           $SUDO chmod +x ${zeitgeist_executable_name}
