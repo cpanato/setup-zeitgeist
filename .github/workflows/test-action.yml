@@ -82,7 +82,7 @@ jobs:
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
     permissions: {}
-    name: Install Custom zeitgeist and test presence in path
+    name: Install Custom path zeitgeist and test presence in path
     steps:
       - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # v3.1.0
       - name: Install zeitgeist
