@@ -79,7 +79,7 @@ runs:
           macOS)
             case ${{ runner.arch }} in
               X64)
-                desired_zeitgeist_filename='zeitgeist_${{ inputs.zeitgeist-release }}_darwin_arm64'
+                desired_zeitgeist_filename='zeitgeist_${{ inputs.zeitgeist-release }}_darwin_amd64'
                 ;;
 
               ARM64)
