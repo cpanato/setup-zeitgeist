@@ -42,7 +42,7 @@ runs:
         if [[ ${{ inputs.zeitgeist-release }} == "main" ]]; then
           log_info "installing zeitgeist via 'go install' from its main version"
           GOBIN=$(go env GOPATH)/bin
-          go install https://github.com/kubernetes-sigs/zeitgeist@main
+          go install github.com/kubernetes-sigs/zeitgeist@main
           ln -s $GOBIN/zeitgeist ${{ inputs.install-dir}}/zeitgeist
           exit 0
         fi
@@ -122,7 +122,7 @@ runs:
         fi
 
         # Download custom zeitgeist
-        log_info "Downloading platform-specific version '${{ inputs.zeitgeist-release }}' of zeitgeist...\n      https://github.com/kubernetes-sigs/zeitgeist/releases/download/v${{ inputs.zeitgeist-release }}/${desired_zeitgeist_filename}
+        log_info "Downloading platform-specific version '${{ inputs.zeitgeist-release }}' of zeitgeist...\n      https://github.com/kubernetes-sigs/zeitgeist/releases/download/v${{ inputs.zeitgeist-release }}/${desired_zeitgeist_filename}"
         $SUDO curl -sL https://github.com/kubernetes-sigs/zeitgeist/releases/download/v${{ inputs.zeitgeist-release }}/${desired_zeitgeist_filename} -o ${zeitgeist_executable_name}
 
         ZEITGEIST_KEY=https://github.com/kubernetes-sigs/zeitgeist/releases/download/v${{ inputs.zeitgeist-release }}/${desired_zeitgeist_filename}.pem
