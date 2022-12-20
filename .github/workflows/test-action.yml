@@ -29,3 +29,88 @@ jobs:
             exit 0
           fi
         shell: bash
+
+  test_zeitgeist_with_go_install:
+    permissions: {}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+        go_version: ['1.19']
+    name: Try to install zeitgeist with go ${{ matrix.go_version }}
+    steps:
+      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # v3.1.0
+      - uses: actions/setup-go@d0a58c1c4d2b25278816e339b944508c875f3613 # v3.4.0
+        with:
+          go-version: ${{ matrix.go_version }}
+          check-latest: true
+      - name: Install zeitgeist
+        uses: ./
+        with:
+          zeitgeist-release: 'main'
+      - name: Check install!
+        run: zeitgeist version
+
+  test_zeitgeist_action_custom_dir_root:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+    permissions: {}
+    name: Install Custom zeitgeist and test presence in path with custom root dir
+    steps:
+      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # v3.1.0
+      - name: Install zeitgeist
+        uses: ./
+        with:
+          install-dir: /usr/bin
+          use-sudo: true
+      - name: Check install!
+        run: zeitgeist version
+      - name: Check install dir!
+        run: |
+          [[ $(dirname "$(which zeitgeist)") == /usr/bin ]]
+        shell: bash
+      - name: Check root directory
+        run: |
+          [[ -z $(git diff --stat) ]]
+        shell: bash
+
+  test_zeitgeist_action_custom_dir:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+    permissions: {}
+    name: Install Custom zeitgeist and test presence in path
+    steps:
+      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # v3.1.0
+      - name: Install zeitgeist
+        uses: ./
+        with:
+          install-dir: "$HOME/.zeitgeisttest"
+      - name: Check install!
+        run: zeitgeist version
+      - name: Check install dir!
+        run: |
+          [[ $(dirname "$(which zeitgeist)") == "$HOME/.zeitgeisttest" ]]
+        shell: bash
+      - name: Check root directory
+        run: |
+          [[ -z $(git diff --stat) ]]
+        shell: bash
+
+  test_zeitgeist_action_wrong:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+    permissions: {}
+    name: Try to install a wrong zeitgeist
+    steps:
+      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # v3.1.0
+      - name: Install zeitgeist
+        uses: ./
+        with:
+          zeitgeist-release: 'honk'
+        continue-on-error: true
