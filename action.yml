@@ -24,8 +24,8 @@ runs:
   steps:
     - uses: sigstore/cosign-installer@9becc617647dfa20ae7b1151972e9b3a2c338a2b # v2.8.1
       with:
-        install-dir: ${{ input.install-dir }}
-        use-sudo: ${{ input.use-sudo }}
+        install-dir: ${{ inputs.install-dir }}
+        use-sudo: ${{ inputs.use-sudo }}
     - shell: bash
       run: |
         #!/bin/bash
