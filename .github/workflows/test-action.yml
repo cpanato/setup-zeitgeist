@@ -15,7 +15,7 @@ jobs:
     permissions: {}
     name: Install zeitgeist and test presence in path
     steps:
-      - uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
+      - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
       - name: Install zeitgeist
         uses: ./
       - name: Check install!
@@ -39,7 +39,7 @@ jobs:
         go_version: ['1.19', '1.20']
     name: Try to install zeitgeist with go ${{ matrix.go_version }}
     steps:
-      - uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
+      - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
       - uses: actions/setup-go@fac708d6674e30b6ba41289acaab6d4b75aa0753 # v4.0.1
         with:
           go-version: ${{ matrix.go_version }}
@@ -59,7 +59,7 @@ jobs:
     permissions: {}
     name: Install Custom zeitgeist and test presence in path with custom root dir
     steps:
-      - uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
+      - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
       - name: Install zeitgeist
         uses: ./
         with:
@@ -84,7 +84,7 @@ jobs:
     permissions: {}
     name: Install Custom path zeitgeist and test presence in path
     steps:
-      - uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
+      - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
       - name: Install zeitgeist
         uses: ./
         with:
@@ -108,7 +108,7 @@ jobs:
     permissions: {}
     name: Try to install a wrong zeitgeist
     steps:
-      - uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
+      - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
       - name: Install zeitgeist
         uses: ./
         with:
