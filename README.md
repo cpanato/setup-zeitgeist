@@ -1,5 +1,9 @@
 # setup-zeitgeist GitHub Action
 
+
+Please use the one in https://github.com/kubernetes-sigs/release-actions/tree/main/setup-zeitgeist
+
+
 This action enables you to install [zeitgeist](https://github.com/kubernetes-sigs/zeitgeist)
 
 
